@@ -1,0 +1,30 @@
+.spacer {
+    flex: 1 0 auto;
+}
+
+.toolbar {
+    height: 5%;
+
+    .button {
+        margin: 0 10px;
+    }
+}
+.container {
+    height: 95%;
+}
+  
+.sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+  
+.sidenav {
+    padding: 20px;
+}
+
+main {
+    height: 100%;
+}
+

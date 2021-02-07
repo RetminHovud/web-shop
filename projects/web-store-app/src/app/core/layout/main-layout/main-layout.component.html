@@ -1,0 +1,30 @@
+<mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button class="buttton-icon" aria-label="Menu button" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <label>Web Shop</label>
+    <span class="spacer"></span>
+    
+    <button mat-icon-button (click)="toggleCart()" aria-label="Go home page">
+        <mat-icon>shopping_cart</mat-icon>
+    </button>
+</mat-toolbar>
+<main>
+    <mat-drawer-container class="container" autosize>
+        <mat-drawer #drawer class="sidenav" mode="side">
+            <mat-list>
+                <div mat-subheader>Menu</div>
+                <mat-list-item (click)="navigate(item.url)" *ngFor="let item of list">
+                    <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+                    <div mat-line>{{item.name}}</div>        
+                </mat-list-item>
+            </mat-list>
+        </mat-drawer>
+        <mat-sidenav-container>
+            <mat-sidenav *ngIf="hiddenCart && !isEmpty()" opened mode="side" position="end">
+                <store-app-cart [productList]="productList" [type]="'small'"></store-app-cart>
+            </mat-sidenav>
+            <router-outlet></router-outlet>
+        </mat-sidenav-container>
+    </mat-drawer-container>
+</main>

@@ -1,0 +1,30 @@
+<div class="content">
+    <div class="product-content" *ngFor="let product of productList">
+        <div class="product-item">
+            <mat-card>
+                <div class="card">
+                    <div class="card__image">
+                        <img mat-card-image src="{{product.image_url}}" alt="Product image">
+                    </div>
+                    <div class="card__header">
+                        <span class="product-name">{{product.productName}}</span>
+                        <span class="product-price">{{product.price}} $</span>
+                        <button mat-icon-button [ngClass]="{'favorite': product.favorite == '1'}" (click)="swapFavorite(product)" class="fav-button" aria-label="Add to favorite">
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                    </div>
+                    <div class="card__content">
+                        <p class="product-description">{{product.productDescription}}</p>
+                    </div>
+                    <div class="card__footer">
+                        <span class="product-stock">{{product.stock}} left</span>
+                        <button mat-button (click)="addProduct(product)" class="add-button" aria-label="Add product to cart">
+                            <mat-icon>add</mat-icon>
+                            <span>Add</span>
+                        </button>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="cart-content" [ngClass]="type" *ngIf="!isEmpty()">
+    <mat-list-item *ngFor="let product of productList">
+        <div class="cart-item">
+            <img matListAvatar class="item-image" src="{{product.image_url}}" alt="Produyct image">
+            <div class="item-text">
+               <span mat-line class="item-name"> {{ product.productName }} </span>
+               <store-app-number-picker 
+               [quantity]="product.quantity" 
+               [stock]="product.stock"
+               (incress)="updateQuantity($event, product)"
+               (decrease)="updateQuantity($event, product)"
+               ></store-app-number-picker>
+            </div>
+            <span mat-line class="item-price"> {{ product.price }} $ </span>
+        </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <div class="cart-footer">
+        <button mat-button class="checkout-button" aria-label="Checkout to cart">Checkout</button>
+        <span class="total-amount"> {{totalAmount}} $</span>
+    </div>
+</div>

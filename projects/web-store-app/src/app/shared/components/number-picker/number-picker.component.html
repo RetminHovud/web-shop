@@ -1,0 +1,10 @@
+
+<div>
+    <button mat-icon-button class="decress-button" (click)="deleteProduct()" aria-label="Decress button">
+        <mat-icon>remove_circle</mat-icon>
+    </button>
+    <input type="number" [(ngModel)]="quantity" min="0" max="{{stock}}">
+    <button mat-icon-button class="incress-button" (click)="addProduct()" aria-label="Increes button">
+        <mat-icon>add_circle</mat-icon>
+    </button>
+</div>
