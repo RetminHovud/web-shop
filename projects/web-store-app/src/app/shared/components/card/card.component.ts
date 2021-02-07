@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Product } from '../../../model/interface/product.model';
-import { FavoritesService } from '../../../services/favorites/favorites.service';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
@@ -9,15 +9,22 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
   styleUrls: ['./card.component.scss']
 })
 
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnDestroy {
   @Input() productList!: Product[];
-  public cartList: Product[] = [];
 
+  public cartList: Product[] = [];
+  private userDataSubscription: Subscription = new Subscription;
+  
   constructor(private localStorageService: LocalStorageService ) { 
     this.cartList = JSON.parse(this.localStorageService.getItem('cart')) ? JSON.parse(this.localStorageService.getItem('cart')) : [];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userDataSubscription = this.localStorageService.userData$.subscribe(
+      (productList: any): void => {
+        this.cartList = productList;
+    });
+  }
 
   public addProduct(product: Product): void {
     const isNewProduct = !this.cartList.find(element => element === product);
@@ -44,6 +51,10 @@ export class CardComponent implements OnInit {
         product.quantity = this.cartList[i].quantity + 1;
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.userDataSubscription.unsubscribe();
   }
 
 }

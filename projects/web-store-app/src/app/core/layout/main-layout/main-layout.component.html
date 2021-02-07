@@ -22,7 +22,7 @@
         </mat-drawer>
         <mat-sidenav-container>
             <mat-sidenav *ngIf="hiddenCart && !isEmpty()" opened mode="side" position="end">
-                <store-app-cart [productList]="productList" [type]="'small'"></store-app-cart>
+                <store-app-cart [type]="'small'"></store-app-cart>
             </mat-sidenav>
             <router-outlet></router-outlet>
         </mat-sidenav-container>

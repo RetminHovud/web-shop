@@ -9,17 +9,25 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit, OnDestroy {
-  @Input() productList!: Product[];
   @Input()
   type!: string;
+  
+  public productList: Product[] = [];
   public totalAmount = 0;
 
   private userDataSubscription: Subscription = new Subscription;
   
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(private localStorageService: LocalStorageService) {
+    this.productList = JSON.parse(this.localStorageService.getItem('cart')) ? JSON.parse(this.localStorageService.getItem('cart')) : [];
+    this.updateTotalAmount();
+  }
 
   ngOnInit(): void {
-    this.updateTotalAmount();
+    this.userDataSubscription = this.localStorageService.userData$.subscribe(
+      (productList: any): void => {
+        this.productList = productList;
+        this.updateTotalAmount();
+    });
    }
 
   public updateQuantity(event: number, product: Product): void {

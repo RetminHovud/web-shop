@@ -1,6 +1,5 @@
 import { EventEmitter } from '@angular/core';
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { CartProduct } from '../../../model/interface/cart-product.model';
 
 @Component({
   selector: 'store-app-number-picker',
