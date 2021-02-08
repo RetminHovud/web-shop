@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from '../../../model/interface/product.model';
-import { CartService } from '../../services/cart/cart.service';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
@@ -16,7 +15,7 @@ export class CardComponent implements OnInit, OnDestroy {
   public cartList: Product[] = [];
   private userDataSubscription: Subscription = new Subscription;
   
-  constructor(private localStorageService: LocalStorageService, private cartService: CartService ) { 
+  constructor(private localStorageService: LocalStorageService) { 
     this.cartList = JSON.parse(this.localStorageService.getItem('cart')) ? JSON.parse(this.localStorageService.getItem('cart')) : [];
   }
 
@@ -28,7 +27,6 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   public addProduct(product: Product): void {
-    // this.updateStock(product);
     const isNewProduct = !this.cartList.find(element => element === product);
     if (isNewProduct){
       product.quantity = 1;
@@ -62,13 +60,6 @@ export class CardComponent implements OnInit, OnDestroy {
       }
     }
   }
-
-  /*
-  private updateStock(product: Product): void {
-    const newStock = product.stock - 1;
-    this.cartService.updateStock(product.id, newStock).subscribe();
-  }
-  */
 
   ngOnDestroy(): void {
     this.userDataSubscription.unsubscribe();
