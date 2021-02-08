@@ -2,13 +2,14 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    overflow: hidden;
+    justify-content: center;
+    height: 100%;
     .product-content {
         display: flex;
         justify-content: center;
         .product-item {
             width: 350px;
-            min-height: 700px;
+            height: 700px;
             margin: 20px;
             .card {
                 height: 100%;

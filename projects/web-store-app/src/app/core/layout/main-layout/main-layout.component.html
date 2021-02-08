@@ -9,7 +9,7 @@
         <mat-icon>shopping_cart</mat-icon>
     </button>
 </mat-toolbar>
-<main>
+<main class="main-layout">
     <mat-drawer-container class="container" autosize>
         <mat-drawer #drawer class="sidenav" mode="side">
             <mat-list>
@@ -20,7 +20,7 @@
                 </mat-list-item>
             </mat-list>
         </mat-drawer>
-        <mat-sidenav-container>
+        <mat-sidenav-container class="sidenav-container">
             <mat-sidenav *ngIf="hiddenCart && !isEmpty()" opened mode="side" position="end">
                 <store-app-cart [type]="'small'"></store-app-cart>
             </mat-sidenav>
