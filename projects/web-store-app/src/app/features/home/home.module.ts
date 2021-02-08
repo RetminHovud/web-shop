@@ -12,7 +12,6 @@ import { ProductsService } from '../../services/home/home.service';
   imports: [
     SharedModule,
     HomeRoutingModule,
-    HttpClientModule
   ],
   providers: [ProductsService]
 })

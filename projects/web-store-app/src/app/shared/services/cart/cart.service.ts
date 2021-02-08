@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { API_ROUTE } from '../../constants/api.routes.constants';
 import { Observable } from 'rxjs';
-import { API_ROUTE } from '../../shared/constants/api.routes.constants';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 
 export class CartService {
 

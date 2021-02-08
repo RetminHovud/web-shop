@@ -16,7 +16,7 @@
     </mat-list-item>
     <mat-divider></mat-divider>
     <div class="cart-footer">
-        <button mat-button class="checkout-button" aria-label="Checkout to cart">Checkout</button>
+        <button mat-button (click)="checkout()" class="checkout-button" aria-label="Checkout to cart">Checkout</button>
         <span class="total-amount"> {{totalAmount}} $</span>
     </div>
 </div>

@@ -9,7 +9,7 @@
                     <div class="card__header">
                         <span class="product-name">{{product.productName}}</span>
                         <span class="product-price">{{product.price}} $</span>
-                        <button mat-icon-button [ngClass]="{'favorite': product.favorite == '1'}" (click)="swapFavorite(product)" class="fav-button" aria-label="Add to favorite">
+                        <button mat-icon-button [ngClass]="{'favorite': isFavorite(product)}" (click)="swapFavorite(product)" class="fav-button" aria-label="Add to favorite">
                             <mat-icon>favorite</mat-icon>
                         </button>
                     </div>

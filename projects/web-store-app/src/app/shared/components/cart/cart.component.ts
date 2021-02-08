@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from '../../../model/interface/product.model';
+import { CartService } from '../../services/cart/cart.service';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
+
 export class CartComponent implements OnInit, OnDestroy {
   @Input()
   type!: string;
@@ -17,7 +19,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private userDataSubscription: Subscription = new Subscription;
   
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(private localStorageService: LocalStorageService, private cartService: CartService) {
     this.productList = JSON.parse(this.localStorageService.getItem('cart')) ? JSON.parse(this.localStorageService.getItem('cart')) : [];
     this.updateTotalAmount();
   }
@@ -31,7 +33,8 @@ export class CartComponent implements OnInit, OnDestroy {
    }
 
   public updateQuantity(event: number, product: Product): void {
-    this.productList[this.productList.indexOf(product)].quantity = event; 
+    const productToUpdate = this.productList[this.productList.indexOf(product)];
+    productToUpdate.quantity = event; 
     this.updateTotalAmount();
     this.localStorageService.updateItem('cart', this.productList);
   }
@@ -50,6 +53,23 @@ export class CartComponent implements OnInit, OnDestroy {
 
   public isEmpty(): boolean {
     return !this.productList.length;
+  }
+
+  public checkout(): void {
+    // ToDo confirm checkout
+    this.updateStock();
+    console.log('Did a checkout');
+    alert('Checkout!');
+    this.localStorageService.clear();
+  }
+
+  private updateStock(): void {
+    let newStock;
+    const productList = this.productList;
+    for (let i = 0, len = productList.length; i < len; i++) {
+      newStock =  productList[i].stock - productList[i].quantity;
+      this.cartService.updateStock(productList[i].id, newStock).subscribe();
+    }
   }
 
   ngOnDestroy(): void {

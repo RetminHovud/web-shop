@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { CartComponent } from './components/cart/cart.component';
+import { CartService } from './services/cart/cart.service';
 
 @NgModule({
   declarations: [ CartComponent, CardComponent, NumberPickerComponent],
@@ -36,11 +37,11 @@ import { CartComponent } from './components/cart/cart.component';
     MatListModule,
     MatInputModule,
     MatDividerModule,
-
-    CartComponent,
+    
     CardComponent,
+    CartComponent,
     NumberPickerComponent
   ],
-  providers: []
+  providers: [CartService]
 })
 export class SharedModule { }

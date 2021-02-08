@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from '../../../model/interface/product.model';
+import { CartService } from '../../services/cart/cart.service';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class CardComponent implements OnInit, OnDestroy {
   public cartList: Product[] = [];
   private userDataSubscription: Subscription = new Subscription;
   
-  constructor(private localStorageService: LocalStorageService ) { 
+  constructor(private localStorageService: LocalStorageService, private cartService: CartService ) { 
     this.cartList = JSON.parse(this.localStorageService.getItem('cart')) ? JSON.parse(this.localStorageService.getItem('cart')) : [];
   }
 
@@ -27,6 +28,7 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   public addProduct(product: Product): void {
+    // this.updateStock(product);
     const isNewProduct = !this.cartList.find(element => element === product);
     if (isNewProduct){
       product.quantity = 1;
@@ -40,7 +42,15 @@ export class CardComponent implements OnInit, OnDestroy {
   public swapFavorite(product: Product): void {
     // ToDo update favorite list
     console.log('Update favorite list');
-    // this.favoritesService.updateFavorite(product.id, !JSON.parse(product.favorite));
+    if (JSON.parse(product.favorite)) {
+      alert('Removed to favorites');
+    } else {
+      alert('Added to favorites');
+    }
+  }
+
+  public isFavorite(product: Product): boolean {
+    return JSON.parse(product.favorite);
   }
 
   private stackProducts(cartProduct: Product): void {
@@ -52,6 +62,13 @@ export class CardComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  /*
+  private updateStock(product: Product): void {
+    const newStock = product.stock - 1;
+    this.cartService.updateStock(product.id, newStock).subscribe();
+  }
+  */
 
   ngOnDestroy(): void {
     this.userDataSubscription.unsubscribe();
